@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace webstore
 {
-    internal interface IBookRepository
+    public interface IBookRepository
     {
+        Book[] GetAllByTitle (string titlePart);
     }
 }
