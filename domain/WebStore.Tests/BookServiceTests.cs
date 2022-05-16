@@ -12,7 +12,7 @@ namespace WebStore.Tests
     public class BookServiceTests
     {
         [Fact]
-        public void GetAllByQuery_WithIsbn_CallsGetAllByIsbn()
+        public void GetAllByQueryMock_WithIsbn_CallsGetAllByIsbn()
         {
             var bookRepositoryStub = new Mock<IBookRepository>();
             bookRepositoryStub.Setup(x => x.GetAllByIsbn(It.IsAny<string>()))
@@ -45,6 +45,32 @@ namespace WebStore.Tests
             var actual = bookService.GetAllByQuery(invalidIsbn);
 
             Assert.Collection(actual, book => Assert.Equal(2, book.Id));
+        }
+
+        [Fact]
+        public void GetAllByQuery_WithIsbn_CallsGetAllByIsbn()
+        {
+            const int idOfIsbnSearch = 1;
+
+            var bookRepository = new StubBookRepository();
+            var bookService = new BookService(bookRepository);
+
+            var books = bookService.GetAllByQuery("ISBN 12345-67890");
+
+            Assert.Collection(books, book => Assert.Equal(idOfIsbnSearch, book.Id));
+        }
+
+        [Fact]
+        public void GetAllByQuery_WithTitle_CallsGetAllByTitleOrAuthor()
+        {
+            const int idOfAuthorSearch = 2;
+
+            var bookRepository = new StubBookRepository();
+            var bookService = new BookService(bookRepository);
+
+            var books = bookService.GetAllByQuery("Programming");
+
+            Assert.Collection(books, book => Assert.Equal(idOfAuthorSearch, book.Id));
         }
     }
 }
