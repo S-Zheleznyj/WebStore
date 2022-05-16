@@ -16,12 +16,12 @@ namespace WebStore.Tests
         {
             ResultOfGetAllByIsbn = new[]
             {
-                new Book(1, "", "", "")
+                new Book(1, "", "", "", "", 0m)
             };
 
             ResultOfGetAllByTitleOrAuthor = new[]
             {
-                new Book(2, "", "", "")
+                new Book(2, "", "", "", "", 0m)
             };
         }
 
@@ -33,6 +33,11 @@ namespace WebStore.Tests
         public Book[] GetAllByTitleOrAuthor(string titleOrAuthor)
         {
             return ResultOfGetAllByTitleOrAuthor;
+        }
+
+        public Book GetById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
